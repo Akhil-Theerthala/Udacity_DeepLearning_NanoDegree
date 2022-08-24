@@ -1,0 +1,51 @@
+Github Link: [TV Script Generation](https://github.com/Akhil-Theerthala/Udacity_DeepLearning_Nanodegree/tree/main/project%20-%20TV%20script%20generation)
+
+## Introduction: 
+The goal of the project is to generate TV Scripts. The dataset is the collection of scripts of the famous TV show **Seinfeld**. 
+
+## Process of evaluation:
+After reading a few online sources, I decided to start with a few common values for each hyperparameter. Later after checking with each epoch, I changed a few values, to meet the requirements.: (The changes are entered in bold letters)
+
+| S.No | Sequence length | Batch Size | Learning Rate | Embedding Dimension | Hidden Dimensions | n_layers | Loss after 1 epoch | Reason | 
+|---|---|---|---|---|---|---|---|---|
+| 1 | 10 | 64 | 0.01 | 300 | 256 | 2 | 9.27 | - |
+| 2 | 10 | 64 | **0.001** | 300 | 256 | 2 | 9.137 | Decreasing the learning rate makes learning easier but slow. |
+| 3 | 10 | 64 | **0.0001** | 300 | 256 | 2 |  9.166 | " |
+| 4 | 10 | 64 | 0.001 | 300 | **512** | 2 |  9.1788 | Increasing the complexity might help the model in learning |
+
+At this point I went back to my model and revised it. I removed the unnecessary bloat and also removed the sigmoid activation from the model, as the output was not a probability.
+
+| S.No | Sequence length | Batch Size | Learning Rate | Embedding Dimension | Hidden Dimensions | n_layers | Loss after 1 epoch | Reason for the change | Observation |
+|---|---|---|---|---|---|---|---|---|---|
+| 5 | 10 | **128** | 0.0001 | 300 | 256 | 2 | 4.2934 | -| **Currently the best decrease till now** |
+| 6 | 10 | 128 | 0.0001 | 300 | 256 | **3** | 5.3 (stopped in the middle) | Increasing the num_layers to increase the complexity of the model | The progress is too slow |
+| 7 | 10 | 128 | **0.01** | 300 | 256 | 3 | 5.895  | Trying to see if the model becomes faster | The loss is not the best |
+| 8 | 10 | 128 | 0.01 | 300 | 256 | **2** | 4.9484 |  Trying to see if the increase in learning rate has any effect on the model | The model trained faster compared the one at 5 |
+
+* After initializing the weights to a normal distribution for the linear layer
+
+| S.No | Sequence length | Batch Size | Learning Rate | Embedding Dimension | Hidden Dimensions | n_layers | Loss after 1 epoch | Reason for the change | Observation |
+|---|---|---|---|---|---|---|---|---|---|
+| 9 | 10 | 128 | 0.01 | 300 | 256 | 2 | 4.7405 |  Trying to see if the increase in learning rate has any effect on the model | The model trained faster compared the one at 5 |
+| 10 | **20** | 128 | 0.01 | 300 | 256 | 2 | 4.857 |  Trying to see if the increase in learning rate has any effect on the model | The model trained faster compared the one at 5 |
+| 11 | 20 | 128 | **0.001** | 300 | 256 | 2 | 4.1580 | Comparing the above model to the one which gave best results under same conditions. | - |
+
+## Output:
+
+```
+george: so you want to see how you could do that?
+
+hoyt: i don't want to see you in a hotel.
+
+elaine: you want to get the car on the street and a wheelchair?
+
+hoyt: what do you think?
+
+george: yeah, i guess i was wondering about it.
+
+jerry: what are you doing with this girl?
+
+elaine: no, i got to tell him.
+...
+```
+
